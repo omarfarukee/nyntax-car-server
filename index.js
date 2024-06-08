@@ -23,7 +23,7 @@ const run = async () => {
         const db = client.db('nyntax-car');
         const chargesCollection = db.collection("charges-summary");
 
-        app.post("/create-chargeSummary", async (req, res) => {
+        app.post("/api/create-chargeSummary", async (req, res) => {
 
             const ID = req.body;
             const vehicle_id = ID.vehicle_id;
@@ -137,6 +137,30 @@ const run = async () => {
             }
 
         })
+
+        app.get("/api/chargesSummary/Fetch", async (req, res) => {
+            const cursor = chargesCollection.find({});
+            const allInfo = await cursor.toArray();
+
+            res.send({ status: true, data: allInfo });
+        });
+
+
+        app.get("/api/chargeSummary/:id", async (req, res) => {
+            const id = req.params.id;
+            const result = await chargesCollection.findOne({ _id: new ObjectId(id) });
+            console.log(result);
+            res.send(result);
+        });
+
+        app.delete("/api/charge/:id", async (req, res) => {
+            const id = req.params.id;
+
+            const result = await chargesCollection.deleteOne({ _id: new ObjectId(id) });
+            console.log(result);
+            res.send(result);
+        });
+
 
     }
 
