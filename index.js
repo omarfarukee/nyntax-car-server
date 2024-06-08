@@ -63,6 +63,7 @@ const run = async () => {
                     vehicle,
                     vehicle_id,
                     vehicle_type,
+                    vehicle_model
 
                 } = req.body;
                 // const additionalChargesTotal = additionalCharges.reduce((sum, charge) => sum + charge.value, 0);
@@ -82,11 +83,13 @@ const run = async () => {
                 const daily_charged_total = duration_daily * daily_rate;
 
 
-                const taxValueOne = valueOne && valueOne === 11.5 ? 11.5 : 0 
-                const taxValueTwo = valueTwo && valueTwo === 11.5 ? 11.5 : 0  
-                const taxValueThree = valueThree && valueThree === 11.5 ? 11.5 : 0 
+                const taxValueOne = valueOne && valueOne === 11.5 && 11.5 
+                const taxValueTwo = valueTwo && valueTwo === 11.5 && 11.5 
+                const taxValueThree = valueThree && valueThree === 11.5 && 11.5 
 
-                const subTotal = (hourly_charged_total + weekly_charged_total + daily_charged_total) * taxValueOne || taxValueTwo || taxValueThree
+                console.log(taxValueOne, taxValueTwo, taxValueThree)
+
+                const subTotal = (hourly_charged_total + weekly_charged_total + daily_charged_total) * (taxValueOne || taxValueTwo || taxValueThree)
                 const tax = subTotal / 100
                 const total = tax + (hourly_charged_total + weekly_charged_total + daily_charged_total + finalValueOne + finalValueTwo + finalValueThree ) 
                 const grandTotal = total - discount
@@ -111,6 +114,7 @@ const run = async () => {
                     vehicle,
                     vehicle_id,
                     vehicle_type,
+                    vehicle_model,
 
                     tax,
                     hourly_charged_total,
