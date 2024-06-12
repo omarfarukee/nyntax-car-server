@@ -18,7 +18,6 @@
     "moment": "^2.30.1",
     "mongodb": "^6.7.0",
     "mongoose": "^8.4.1",
-    "node-cron": "^3.0.3",
-    "vercel": "^34.2.6"
+    "node-cron": "^3.0.3"
   }
 }
